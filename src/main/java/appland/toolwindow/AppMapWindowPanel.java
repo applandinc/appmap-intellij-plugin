@@ -4,6 +4,7 @@ import appland.AppMapBundle;
 import appland.actions.StartAppMapRecordingAction;
 import appland.actions.StopAppMapRecordingAction;
 import appland.files.AppMapFiles;
+import appland.toolwindow.milestones.UserMilestonesPanel;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.*;
@@ -67,6 +68,7 @@ public class AppMapWindowPanel extends SimpleToolWindowPanel implements DataProv
 
         setToolbar(createToolBar(appMapModel));
         setContent(ScrollPaneFactory.createScrollPane(tree));
+        add(createUserMilestonesPanel(), BorderLayout.SOUTH);
 
         // refresh when dumb mode changes
         var busConnection = project.getMessageBus().connect(this);
@@ -142,6 +144,11 @@ public class AppMapWindowPanel extends SimpleToolWindowPanel implements DataProv
         new EditSourceOnDoubleClickHandler.TreeMouseListener(tree, null).installOn(tree);
         EditSourceOnEnterKeyHandler.install(tree);
         return tree;
+    }
+
+    @NotNull
+    private JPanel createUserMilestonesPanel() {
+        return new UserMilestonesPanel(project);
     }
 
     public void rebuild(boolean force) {
