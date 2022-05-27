@@ -50,7 +50,7 @@ public class FileLookup {
             return null;
         }
 
-        for (var candidate : FilenameIndex.getVirtualFilesByName(project, filename(relativePath), ProjectScope.getAllScope(project))) {
+        for (var candidate : FilenameIndex.getVirtualFilesByName(project, filename(relativePath), true, ProjectScope.getAllScope(project))) {
             var parent = candidate.getParent();
             for (String expectedParentName : parentsReversed(relativePath)) {
                 if (parent == null || !FileUtil.namesEqual(expectedParentName, parent.getName())) {
@@ -61,7 +61,7 @@ public class FileLookup {
             }
 
             if (parent != null) {
-                // the candidate is matching all of the parent directories in the hierarchy
+                // the candidate is matching all parent directories in the hierarchy
                 return candidate;
             }
         }
