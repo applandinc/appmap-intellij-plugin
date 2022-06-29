@@ -59,6 +59,8 @@
                              instance="appland.settings.AppMapProjectConfigurable"/>
 
         <errorHandler implementation="appland.GitHubErrorHandler"/>
+
+        <httpRequestHandler implementation="appland.rest.ApplandHttpRequestHandler"/>
     </extensions>
 
     <actions>
