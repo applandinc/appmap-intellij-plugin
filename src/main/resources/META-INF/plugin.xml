@@ -28,6 +28,8 @@
     </projectListeners>
 
     <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="appland.telemetry.TelemetryService"/>
+
         <postStartupActivity implementation="appland.startup.AppLandStartupActivity"/>
 
         <fileEditorProvider implementation="appland.editor.AppMapHTMLEditorProvider"/>

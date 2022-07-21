@@ -26,6 +26,9 @@ repositories {
 }
 
 dependencies {
+    // This dependency is used for telemetry
+    implementation("com.azure:azure-monitor-opentelemetry-exporter:1.0.0-beta.5")
+
     // http://wiremock.org, Apache 2 license
     testImplementation("com.github.tomakehurst:wiremock-jre8:2.28.0")
 }
