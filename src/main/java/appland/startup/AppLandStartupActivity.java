@@ -1,7 +1,7 @@
 package appland.startup;
 
-import appland.milestones.MilestonesViewType;
-import appland.milestones.UserMilestonesEditorProvider;
+import appland.installGuide.InstallGuideViewPage;
+import appland.installGuide.InstallGuideEditorProvider;
 import appland.settings.AppMapApplicationSettingsService;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
@@ -22,7 +22,7 @@ public class AppLandStartupActivity implements StartupActivity {
 
     static void openToolWindowAndQuickstart(@NotNull Project project) {
         StartupManager.getInstance(project).runWhenProjectIsInitialized(() -> {
-            UserMilestonesEditorProvider.open(project, MilestonesViewType.InstallAgent);
+            InstallGuideEditorProvider.open(project, InstallGuideViewPage.InstallAgent);
         });
     }
 }

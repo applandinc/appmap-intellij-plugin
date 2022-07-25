@@ -2,7 +2,7 @@ package appland.editor;
 
 import appland.Icons;
 import appland.files.AppMapFiles;
-import appland.milestones.UserMilestonesEditorProvider;
+import appland.installGuide.InstallGuideEditorProvider;
 import com.intellij.ide.FileIconProvider;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -15,12 +15,10 @@ public class AppMapIconProvider implements FileIconProvider {
     @Override
     @Nullable
     public Icon getIcon(@NotNull VirtualFile file, int flags, @Nullable Project project) {
-        if (AppMapFiles.isAppMap(file)) {
-            return Icons.APPMAP_FILE;
-        }
-        if (UserMilestonesEditorProvider.isQuickstartFile(file)) {
-            return Icons.APPMAP_FILE;
-        }
-        return null;
+        boolean isAppLandFile = AppMapFiles.isAppMap(file)
+                | InstallGuideEditorProvider.isInstallGuideFile(file)
+                | InstallGuideEditorProvider.isInstallGuideFile(file);
+
+        return isAppLandFile ? Icons.APPMAP_FILE : null;
     }
 }

@@ -3,8 +3,9 @@ package appland;
 import com.intellij.testFramework.fixtures.IdeaTestExecutionPolicy;
 
 /**
- * Test execution policy set in build.gradle.kts.
+ * Test execution policy used by build.gradle.kts.
  */
+@SuppressWarnings("unused")
 public class AppLandTestExecutionPolicy extends IdeaTestExecutionPolicy {
     @Override
     protected String getName() {

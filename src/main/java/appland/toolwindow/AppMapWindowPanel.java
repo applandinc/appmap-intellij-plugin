@@ -4,9 +4,9 @@ import appland.AppMapBundle;
 import appland.actions.StartAppMapRecordingAction;
 import appland.actions.StopAppMapRecordingAction;
 import appland.files.AppMapFiles;
-import appland.milestones.MilestonesViewType;
-import appland.milestones.UserMilestonesEditorProvider;
-import appland.toolwindow.milestones.UserMilestonesPanel;
+import appland.installGuide.InstallGuideViewPage;
+import appland.installGuide.InstallGuideEditorProvider;
+import appland.toolwindow.installGuide.InstallGuidePanel;
 import com.intellij.ide.util.treeView.NodeDescriptor;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.actionSystem.*;
@@ -150,7 +150,7 @@ public class AppMapWindowPanel extends SimpleToolWindowPanel implements DataProv
         tree.getEmptyText().appendSecondaryText(
                 AppMapBundle.get("toolwindow.appmap.installAgentEmptyText"),
                 SimpleTextAttributes.LINK_ATTRIBUTES,
-                e -> UserMilestonesEditorProvider.open(project, MilestonesViewType.InstallAgent));
+                e -> InstallGuideEditorProvider.open(project, InstallGuideViewPage.InstallAgent));
         tree.setRootVisible(false);
         tree.setShowsRootHandles(false);
 
@@ -162,7 +162,7 @@ public class AppMapWindowPanel extends SimpleToolWindowPanel implements DataProv
 
     @NotNull
     private JPanel createUserMilestonesPanel() {
-        return new UserMilestonesPanel(project);
+        return new InstallGuidePanel(project);
     }
 
     public void rebuild(boolean force) {

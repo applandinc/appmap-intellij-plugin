@@ -18,6 +18,8 @@ plugins {
 }
 
 val pluginVersion = prop("pluginVersion")
+val lombokVersion = prop("lombokVersion")
+
 group = "appland.appmap"
 version = pluginVersion
 
@@ -27,7 +29,11 @@ repositories {
 
 dependencies {
     // http://wiremock.org, Apache 2 license
-    testImplementation("com.github.tomakehurst:wiremock-jre8:2.28.0")
+    testImplementation("com.github.tomakehurst:wiremock-jre8:2.33.1")
+
+    // Project Lombok, only for compilation
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 }
 
 intellij {
@@ -56,8 +62,6 @@ tasks {
     buildSearchableOptions.get().enabled = false
 
     buildPlugin {
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
         copyPluginAssets("")
     }
 
@@ -91,6 +95,10 @@ tasks {
         systemProperty("idea.test.execution.policy", "appland.AppLandTestExecutionPolicy")
         systemProperty("appland.testDataPath", file("src/test/data").path)
     }
+
+    withType<Zip> {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    }
 }
 
 fun AbstractCopyTask.copyPluginAssets(rootDir: String) {
@@ -100,12 +108,9 @@ fun AbstractCopyTask.copyPluginAssets(rootDir: String) {
         include("index.html")
         include("dist/**")
     }
-    from("${project.rootDir}/appland-user-milestones") {
-        into("${rootPath}appland-user-milestones")
-        include("welcome.html")
-        include("agent.html")
-        include("record.html")
-        include("appmaps.html")
+    from("${project.rootDir}/appland-install-guide") {
+        into("${rootPath}appland-install-guide")
+        include("index.html")
         include("dist/**")
     }
 }

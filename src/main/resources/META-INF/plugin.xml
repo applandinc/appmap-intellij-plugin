@@ -16,10 +16,19 @@
 
     <extensionPoints>
         <extensionPoint qualifiedName="appland.agent" interface="appland.lang.agents.AppMapAgent"/>
+        <extensionPoint qualifiedName="appland.languageAnalyzer"
+                        interface="appland.installGuide.analyzer.LanguageAnalyzer"/>
     </extensionPoints>
 
     <extensions defaultExtensionNs="appland">
         <agent implementation="appland.lang.agents.AppMapRubyAgent"/>
+
+        <languageAnalyzer implementation="appland.installGuide.analyzer.languages.PythonLanguageAnalyzer"/>
+        <languageAnalyzer implementation="appland.installGuide.analyzer.languages.JavaLanguageAnalyzer"/>
+        <languageAnalyzer implementation="appland.installGuide.analyzer.languages.JavaScriptLanguageAnalyzer"/>
+        <languageAnalyzer implementation="appland.installGuide.analyzer.languages.RubyLanguageAnalyzer"/>
+
+        <languageAnalyzer order="last" implementation="appland.installGuide.analyzer.languages.UnknownLanguageAnalyzer"/>
     </extensions>
 
     <projectListeners>
@@ -34,7 +43,7 @@
         <fileIconProvider implementation="appland.editor.AppMapIconProvider"/>
         <editorNotificationProvider implementation="appland.editor.AppMapNotificationProvider"/>
 
-        <fileEditorProvider implementation="appland.milestones.UserMilestonesEditorProvider"/>
+        <fileEditorProvider implementation="appland.installGuide.InstallGuideEditorProvider"/>
 
         <fileBasedIndex implementation="appland.index.AppMapMetadataIndex"/>
         <indexedRootsProvider implementation="appland.index.AppMapFolderIndexedRootProvider"/>
@@ -50,6 +59,8 @@
         <projectService serviceImplementation="appland.settings.AppMapProjectSettingsService"/>
         <projectService serviceInterface="appland.remote.RemoteRecordingStatusService"
                         serviceImplementation="appland.remote.DefaultRemoteRecordingStatusService"/>
+        <projectService serviceInterface="appland.installGuide.projectData.ProjectDataService"
+                        serviceImplementation="appland.installGuide.projectData.DefaultProjectDataService"/>
 
         <notificationGroup id="appmap.remoteRecording" displayType="BALLOON"
                            key="notification.remoteRecording.displayName"/>
@@ -71,7 +82,7 @@
         <action id="appmapDocs" class="appland.actions.AppMapDocumentationAction">
             <add-to-group group-id="HelpMenu" anchor="before" relative-to-action="CheckForUpdate"/>
         </action>
-  
+
         <group id="appmapToolsMenu" popup="true" icon="appland.Icons.APPMAP_TOOLS_MENU">
             <!--          
             <reference ref="uploadAppMap"/> 
@@ -81,9 +92,7 @@
 
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </group>
-        <action id="openUserQuickstart" class="appland.actions.OpenQuickstartAction"
-                text="AppLand: Open Quickstart"/>
-        <action id="openUserAppMaps" class="appland.actions.OpenAppMapsAction"
-                text="AppLand: Open AppMaps"/>
+        <action id="openInstallGuide" class="appland.actions.OpenInstallGuideAction"
+                text="AppLand: Install Guide (Beta)"/>
     </actions>
 </idea-plugin>
