@@ -12,6 +12,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.util.SlowOperations;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,6 +35,7 @@ public class ScannerProblemsManager {
 
     public Map<VirtualFile, List<ScannerFinding>> processFindings() {
         var result = new HashMap<VirtualFile, List<ScannerFinding>>();
+        var unknownFileResults = new ArrayList<ScannerFinding>();
 
         SlowOperations.allowSlowOperations(() -> processAllFindings((findingsFile, findings) -> {
             var parentDir = findingsFile.getParent();
@@ -44,10 +46,19 @@ public class ScannerProblemsManager {
                     var problemFile = FileLookup.findRelativeFile(project, parentDir, location.filePath);
                     if (problemFile != null) {
                         result.computeIfAbsent(problemFile, virtualFile -> new ArrayList<>()).add(finding);
+                        continue;
                     }
                 }
+
+                // fallback
+                unknownFileResults.add(finding);
             }
         }));
+
+        if (unknownFileResults.size() > 0) {
+            var file = new LightVirtualFile("Unknown Files");
+            result.put(file, unknownFileResults);
+        }
 
         return result;
     }
