@@ -1,5 +1,12 @@
 # AppMap Plugin Changelog
 
+## [0.8.0]
+### Added
+- Support for AppLand scanner findings
+
+### Changed
+- Dropped support for 2021.1 and 2021.2
+
 ## [0.7.10]
 ### Updated
 - Compatibility with 2022.2 EAP
